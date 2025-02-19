@@ -32,4 +32,19 @@ button {
 .card button {
   background-color: rgb(96, 3, 3);
   border: 1px solid rgb(96, 3, 3);
+  border-radius: 10px;
+}
+
+.public {
+  background-color: green;
+  padding: 4px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.private {
+  background-color: rgb(158, 30, 30);
+  padding: 4px;
+  font-size: 12px;
+  border-radius: 8px;
 }

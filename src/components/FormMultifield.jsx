@@ -8,7 +8,8 @@ export default function FormMultifield() {
         title: '',
         author: '',
         content: '',
-        category: ''
+        category: '',
+        available: false
     }
 
     const [data, setData] = useState(articles)
@@ -76,6 +77,12 @@ export default function FormMultifield() {
                     required
                 />
                 <button>INVIA</button>
+                <label htmlFor="available">Pubblico</label>
+                <input type="checkbox"
+                    name="available"
+                    id="available"
+                    required
+                />
             </form >
             <div className="container-cards">
                 {data.map((article) => (
@@ -83,7 +90,8 @@ export default function FormMultifield() {
                         <h2>{article.title}</h2>
                         <span>{article.author}</span>
                         <p>{article.content}</p>
-                        <span>{article.category}</span>
+                        <span>{article.category}</span><br />
+                        <span className={article.available ? 'private' : 'public'}>{article.available ? 'Privato' : 'Pubblico'}</span>
                         <button onClick={() => deleteArticle(article.id)}>
                             X
                         </button>
