@@ -17,9 +17,10 @@ export default function FormMultifield() {
 
 
     const handleFormData = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: value
         });
     };
 
@@ -79,9 +80,10 @@ export default function FormMultifield() {
                 <button>INVIA</button>
                 <label htmlFor="available">Pubblico</label>
                 <input type="checkbox"
+                    checked={formData.available}
+                    onChange={handleFormData}
                     name="available"
                     id="available"
-                    required
                 />
             </form >
             <div className="container-cards">
@@ -91,7 +93,7 @@ export default function FormMultifield() {
                         <span>{article.author}</span>
                         <p>{article.content}</p>
                         <span>{article.category}</span><br />
-                        <span className={article.available ? 'private' : 'public'}>{article.available ? 'Privato' : 'Pubblico'}</span>
+                        <span className={article.available ? 'public' : 'private'}>{article.available ? 'Pubblico' : 'Privato'}</span>
                         <button onClick={() => deleteArticle(article.id)}>
                             X
                         </button>
