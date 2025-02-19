@@ -86,21 +86,23 @@ export default function FormMultifield() {
                     id="available"
                 />
             </form >
-            <div className="container-cards">
-                {data.map((article) => (
-                    <div className="card" key={article.id}>
-                        <h2>{article.title}</h2>
-                        <span>{article.author}</span>
-                        <p>{article.content}</p>
-                        <span>{article.category}</span><br />
-                        <span className={article.available ? 'public' : 'private'}>{article.available ? 'Pubblico' : 'Privato'}</span>
-                        <button onClick={() => deleteArticle(article.id)}>
-                            X
-                        </button>
-                    </div>
+            {data.length === 0 ? 'Nessun articolo disponibile' :
+                <div className="container-cards">
+                    {data.map((article) => (
+                        <div className="card" key={article.id}>
+                            <h2>{article.title}</h2>
+                            <span>{article.author}</span>
+                            <p>{article.content}</p>
+                            <span>{article.category}</span><br />
+                            <span className={article.available ? 'public' : 'private'}>{article.available ? 'Pubblico' : 'Privato'}</span>
+                            <button onClick={() => deleteArticle(article.id)}>
+                                X
+                            </button>
+                        </div>
 
-                ))}
-            </div>
+                    ))}
+                </div>
+            }
         </>
     )
 }
