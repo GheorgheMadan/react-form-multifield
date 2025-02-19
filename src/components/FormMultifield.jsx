@@ -14,6 +14,7 @@ export default function FormMultifield() {
     const [data, setData] = useState(articles)
     const [formData, setFormData] = useState(initialForm)
 
+
     const handleFormData = (e) => {
         setFormData({
             ...formData,
@@ -24,13 +25,19 @@ export default function FormMultifield() {
     const addArticle = (e) => {
         e.preventDefault();
 
-        // Aggiunge il nuovo articolo alla lista
-        const updatedArticles = [...data, formData];
-        setData(updatedArticles);
+        setData((currentList) => [
+            ...currentList, { id: currentList.length > 0 ? currentList[currentList.length - 1].id + 1 : 1, ...formData }
+        ]);
 
-        // Reset del form
         setFormData(initialForm);
     };
+
+    function deleteArticle(articleId) {
+        const updatedArticles = data.filter((article) => {
+            return article.id !== articleId
+        })
+        setData(updatedArticles)
+    }
 
     return (
         <>
@@ -42,6 +49,7 @@ export default function FormMultifield() {
                     value={formData.title}
                     placeholder="inserisci il titolo"
                     onChange={handleFormData}
+                    required
                 />
                 <input
                     type="text"
@@ -49,12 +57,14 @@ export default function FormMultifield() {
                     value={formData.author}
                     placeholder="inserisci il nome dell'autore"
                     onChange={handleFormData}
+                    required
                 />
                 <textarea
                     name="content"
                     placeholder="inserisci il contenuto"
                     value={formData.content}
                     onChange={handleFormData}
+                    required
                 >
                 </textarea>
                 <input
@@ -63,17 +73,20 @@ export default function FormMultifield() {
                     value={formData.category}
                     placeholder="inserisci la categoria"
                     onChange={handleFormData}
+                    required
                 />
                 <button>INVIA</button>
             </form >
             <div className="container-cards">
                 {data.map((article) => (
-                    <div className="card">
+                    <div className="card" key={article.id}>
                         <h2>{article.title}</h2>
                         <span>{article.author}</span>
                         <p>{article.content}</p>
                         <span>{article.category}</span>
-                        <button>x</button>
+                        <button onClick={() => deleteArticle(article.id)}>
+                            X
+                        </button>
                     </div>
 
                 ))}
